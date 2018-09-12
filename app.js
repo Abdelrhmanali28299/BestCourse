@@ -11,7 +11,7 @@ const auth = require('./routes/auth')
 const index = require('./routes/index')
 const stories = require('./routes/course')
 const keys = require('./config/keys')
-const User = require('./models/google-user')
+const User = require('./models/googleUser')
 const Story = require('./models/course')
 require('./config/passport')(passport)
 
