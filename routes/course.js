@@ -23,7 +23,7 @@ router.post('/add', ensureAuthenticated, (req, res) => {
     let course = new Course({
         title: req.body.title,
         description: req.body.body,
-        rate: req.body.rate,
+        rate: 0,
         user: req.user.id
     })
     course
@@ -51,7 +51,6 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
         .then((data) => {
             data.title = req.body.title
             data.description = req.body.body
-            data.rate = req.body.rate
             data
                 .save()
                 .then(course => {
@@ -72,7 +71,7 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
     Course
         .findOne({ _id: req.params.id })
         .then(course => {
-            course.rate = ((parseInt(course.rate) * (course.comments.length + 1)) + parseInt(req.body.rate))/(course.comments.length + 2)
+            course.rate = ((parseInt(course.rate) * course.comments.length) + parseInt(req.body.rate))/(course.comments.length + 1)
             let newComment = {
                 commentBody: req.body.commentBody,
                 commentRate: req.body.rate,

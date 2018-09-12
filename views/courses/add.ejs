@@ -36,11 +36,6 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div id="rateYo"></div>
-                        <input type="hidden" value="1" name="rate" id="rateyoid">
-                    </div>
-
                     <input type="submit" value="Save" class="btn">
                 </form>
             </div>
@@ -55,14 +50,6 @@
         $(document).ready(() => {
             $('.button-collapse').sideNav();
             $('select').material_select();
-            $(function () {
-                $("#rateYo")
-                    .rateYo({ rating: 0 })
-                    .on("rateyo.set", function (e, data) {
-                        alert("The rating is set to " + data.rating + "!");
-                        document.getElementById("rateyoid").value=data.rating;
-                    });
-            });
         });
         CKEDITOR.replace('body',{plugins: 'wysiwygarea,toolbar,basicstyles,link'});
     </script>
