@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>StoryBooks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <title>StoryBooks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <title>BestCourse</title>
 </head>
 
 <body>
@@ -22,60 +22,69 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m8">
-                    <h3> <%= story.title %></h3>
+                    <h3> <%= course.title %></h3>
                     <% if (user) {%>
-                        <%- editIcon(story.user.id, user.id, story._id, false) %>
+                        <%- editIcon(course.user.id, user.id, course._id, false) %>
                     <% } %>
                     <div class="card story">
                         <div class="card-content">
-                        <span class="card-title"><%= story.date.toLocaleDateString() %></span>
-                        <%- story.body %>
+                            <span class="card-title"><%= course.date.toLocaleDateString() %></span>
+                            <%- course.body %>
+                            <div id="rateYo"></div>
                         </div>
                     </div>
-                    <% if (story.allowComments) { %>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Comments & Rates</span>
+                        </div>
+                        <% if (user) { %>
+                            <form action="/course/comment/<%=course._id%>" method="POST">
+                                <div class="input-field">
+                                    <textarea name="commentBody" class="materialize-textarea"></textarea>
+                                    <label for="commentBody">Add Comment</label>
+                                </div>
+                                <div class="input-field">
+                                    <div id="rateYo2"></div>
+                                    <input type="hidden" value="0" name="rate" id="rateyoid2">
+                                </div>
+                                <input type="submit" value="submit" class="btn">
+                            </form>
+                        <% } else if(!user) { %>
+                            <p>please <a href="/auth/google">login</a> to leave a comment</p>
+                        <% } %>
+                    </div>
+                    <% course.comments.forEach(function(comment) { %>
                         <div class="card">
                             <div class="card-content">
-                                <span class="card-title">Comments</span>
-                            </div>
-                            <% if (user) { %>
-                                <form action="/stories/comment/<%=story._id%>" method="POST">
-                                    <div class="input-field">
-                                        <textarea name="commentBody" class="materialize-textarea"></textarea>
-                                        <label for="commentBody">Add Comment</label>
-                                    </div>
-                                    <input type="submit" value="submit" class="btn">
-                                </form>
-                            <% } else if(!user) { %>
-                                <p>please <a href="/auth/google">login</a> to leave a comment</p>
-                            <% } %>
-                        </div>
-                        <% story.comments.forEach(function(comment) { %>
-                            <div class="card">
-                                <div class="card-content">
-                                    <h5><%= comment.commentBody %></h5>
-                                    <div class="chip">
-                                        <img src="<%=comment.commentUser.image%>" alt="">
-                                        <a href="/stories/user/<%=story.user._id%>">
-                                            <%=comment.commentUser.firstName%> <%=comment.commentUser.lastName%>
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <small>
-                                        posted: <%=comment.commentDate.toLocaleDateString()%>
-                                    </small>
+                                <h5><%= comment.commentBody %></h5>
+                                <div id="rateYo3"></div>
+                                <script>
+                                    $(function () {
+                                        $("#rateYo3").rateYo({ rating: parseInt("<%= comment.commentRate %>"), fullStar:true })
+                                    });
+                                </script>
+                                <div class="chip">
+                                    <img src="<%=comment.commentUser.image%>" alt="">
+                                    <a href="/course/user/<%=course.user._id%>">
+                                        <%=comment.commentUser.firstName%> <%=comment.commentUser.lastName%>
+                                    </a>
                                 </div>
+                                <br>
+                                <small>
+                                    posted: <%=comment.commentDate.toLocaleDateString()%>
+                                </small>
                             </div>
-                        <% }) %>
-                    <% } %>
+                        </div>
+                    <% }) %>
                 </div>
                 <div class="col s12 m4">
                   <div class="card center-align">
                     <div class="card-content">
-                      <span class="card-title"><%= story.user.firstName %> <%= story.user.lastName %></span>
-                      <img src="<%= story.user.image %>" class="circle responsive-img">
+                      <span class="card-title"><%= course.user.firstName %> <%= course.user.lastName %></span>
+                      <img src="<%= course.user.image %>" class="circle responsive-img">
                     </div>
                     <div class="card-action">
-                      <a href="/stories/user/<%=story.user.id%>">More From <%= story.user.firstName %></a>
+                      <a href="/course/user/<%=course.user.id%>">More From <%= course.user.firstName %></a>
                     </div>
                   </div>
                 </div>
@@ -85,9 +94,21 @@
     <% include ../partials/footer.ejs %>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
         $(document).ready(() => {
             $('.button-collapse').sideNav();
+            $(function () {
+                $("#rateYo").rateYo({ rating: parseInt("<%= course.rate %>"), fullStar:true })
+            });
+            $(function () {
+                $("#rateYo2")
+                    .rateYo({ rating: 0, fullStar:true })
+                    .on("rateyo.set", function (e, data) {
+                        alert("The rating is set to " + data.rating + "!");
+                        document.getElementById("rateyoid2").value=data.rating;
+                    });
+            });
         });
     </script>
 </body>

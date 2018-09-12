@@ -38,9 +38,9 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
         .findOne({ _id: req.params.id })
         .then((data) => {
             if (data.user != req.user.id) {
-                res.redirect('/stories')
+                res.redirect('/course')
             } else {
-                res.render('stories/edit', { story: data })
+                res.render('course/edit', { course: data })
             }
         })
 })
@@ -49,16 +49,9 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
     Course
         .findOne({ _id: req.params.id })
         .then((data) => {
-            let allowComments
-            if (req.body.allowComments) {
-                allowComments = true
-            } else {
-                allowComments = false
-            }
             data.title = req.body.title
-            data.body = req.body.body
-            data.status = req.body.status
-            data.allowComments = allowComments
+            data.description = req.body.body
+            data.rate = req.body.rate
             data
                 .save()
                 .then(course => {
@@ -98,15 +91,7 @@ router.get('/show/:id', (req, res) => {
         .populate('user')
         .populate('comments.commentUser')
         .then((data) => {
-            if (data.status == 'public') {
-                res.render('stories/show', { story: data })
-            } else {
-                if (req.user && req.user.id == data.user._id) {
-                    res.render('stories/show', { story: data })
-                } else {
-                    res.redirect('/stories')
-                }
-            }
+            res.render('courses/show', { course: data })
         })
 })
 
