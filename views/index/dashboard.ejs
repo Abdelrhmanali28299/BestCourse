@@ -4,12 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>StoryBooks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <title>StoryBooks</title>
+    <title>BestCourse</title>
 </head>
 
 <body>
@@ -19,9 +18,9 @@
     <% } %>
     <main>
         <div class="container">
-            <% if (stories.length == 0) { %>
-                <p>you don't have any story</p>
-            <% } else if (stories.length >= 0) {%>
+            <% if (courses.length == 0) { %>
+                <p>you don't have any courses</p>
+            <% } else if (courses.length >= 0) {%>
                 <table class="striped">
                     <thead>
                         <tr>
@@ -31,14 +30,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% stories.forEach(function(story){ %>
+                        <% courses.forEach(function(course){ %>
                             <tr>
-                                <td><a href="/stories/show/<%=story._id%>"><%= story.title %></a></td>
-                                <td><%= story.date.toLocaleTimeString().substr(0, story.date.toLocaleTimeString().lastIndexOf(':')) %> : <%= story.date.toLocaleDateString() %></td>
-                                <td><span class="dash-status"><%= story.status %></span></td>
+                                <td><a href="/course/show/<%=course._id%>"><%= course.title %></a></td>
+                                <td><%= course.date.toLocaleTimeString().substr(0, course.date.toLocaleTimeString().lastIndexOf(':')) %> : <%= course.date.toLocaleDateString() %></td>
+                                <td><span class="dash-status"><%= course.rate %></span></td>
                                 <td>
-                                    <a class="btn left-align" href="/stories/edit/<%=story._id%>"><i class="fa fa-pencil"></i> Edit</a>
-                                    <form action="/stories/delete/<%=story._id%>?_method=DELETE" method="post" id="delete-form">
+                                    <a class="btn left-align" href="/course/edit/<%=course._id%>"><i class="fa fa-pencil"></i> Edit</a>
+                                    <form action="/course/delete/<%=course._id%>?_method=DELETE" method="post" id="delete-form">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn red"><i class="fa fa-remove"></i> Delete</button>
                                     </form>

@@ -1,48 +1,40 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const User = require('../models/User')
-const Story = require('../models/story')
+const Course = require('../models/course')
 const { ensureAuthenticated } = require('../helpers/auth')
 
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    Story
-        .find({ status: 'public' })
+    Course
+        .find({ rate: 5 })
         .populate('user')
         .then(data => {
-            res.render('stories/index', { stories: data })
+            res.render('courses/index', { courses: data })
         })
 })
 
 router.get('/add', ensureAuthenticated, (req, res) => {
-    res.render('stories/add.ejs')
+    res.render('courses/add.ejs')
 })
 
 router.post('/add', ensureAuthenticated, (req, res) => {
-    let allowComments
-    if (req.body.allowComments) {
-        allowComments = true
-    } else {
-        allowComments = false
-    }
-
-    let story = new Story({
+    let course = new Course({
         title: req.body.title,
-        body: req.body.body,
-        status: req.body.status,
-        allowComments: allowComments,
+        description: req.body.body,
+        rate: req.body.rate,
         user: req.user.id
     })
-    story
+    course
         .save()
         .then(data => {
-            res.redirect(`/stories/show/${data._id}`)
+            res.redirect(`/course/show/${data._id}`)
         })
 })
 
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
-    Story
+    Course
         .findOne({ _id: req.params.id })
         .then((data) => {
             if (data.user != req.user.id) {
@@ -54,7 +46,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 })
 
 router.put('/edit/:id', ensureAuthenticated, (req, res) => {
-    Story
+    Course
         .findOne({ _id: req.params.id })
         .then((data) => {
             let allowComments
@@ -69,14 +61,14 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
             data.allowComments = allowComments
             data
                 .save()
-                .then(story => {
+                .then(course => {
                     res.redirect('/dashboard')
                 })
         })
 })
 
 router.delete('/delete/:id', ensureAuthenticated, (req, res) => {
-    Story
+    Course
         .remove({ _id: req.params.id })
         .then(() => {
             res.redirect('/dashboard')
@@ -84,15 +76,15 @@ router.delete('/delete/:id', ensureAuthenticated, (req, res) => {
 })
 
 router.post('/comment/:id', ensureAuthenticated, (req, res) => {
-    Story
+    Course
         .findOne({ _id: req.params.id })
-        .then(story => {
+        .then(course => {
             let newComment = {
                 commentBody: req.body.commentBody,
                 commentUser: req.user.id
             }
-            story.comments.unshift(newComment)
-            story
+            course.comments.unshift(newComment)
+            course
                 .save()
                 .then(story => {
                     res.redirect(`/stories/show/${story._id}`)
@@ -101,7 +93,7 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
 })
 
 router.get('/show/:id', (req, res) => {
-    Story
+    Course
         .findOne({ _id: req.params.id })
         .populate('user')
         .populate('comments.commentUser')
@@ -119,7 +111,7 @@ router.get('/show/:id', (req, res) => {
 })
 
 router.get('/user/:id', (req, res) => {
-    Story
+    Course
         .find({
             user: req.params.id,
             status: 'public'
@@ -131,7 +123,7 @@ router.get('/user/:id', (req, res) => {
 })
 
 router.get('/my', ensureAuthenticated, (req, res) => {
-    Story
+    Course
         .find({
             user: req.user.id
         })

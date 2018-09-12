@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Story = require('../models/story')
+const Course = require('../models/course')
 const { ensureAuthenticated, ensureGuest } = require('../helpers/auth')
 const router = express.Router()
 
@@ -9,12 +9,12 @@ router.get('/', ensureGuest, (req, res) => {
 })
 
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
-    Story
+    Course
         .find({ user: req.user.id })
         .populate('user')
         .sort({ date: 'desc' })
-        .then(stories => {
-            res.render('index/dashboard', { stories })
+        .then(courses => {
+            res.render('index/dashboard', { courses })
         })
 })
 

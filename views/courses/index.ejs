@@ -4,12 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>StoryBooks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <title>StoryBooks</title>
+    <title>BestCourse</title>
 </head>
 
 <body>
@@ -20,30 +19,30 @@
     <% include functions.ejs %>
     <main>
         <div class="container">
-            <h1>Stories</h1>
+            <h1>Courses</h1>
             <div class="row">
-                <% if (stories.length == 0) {%>
-                    <p>No Stories Found</p>
-                <% } else if (stories.length >= 0) {%>
-                    <% stories.forEach(function(story){ %>
+                <% if (courses.length == 0) {%>
+                    <p>No Courses Found</p>
+                <% } else if (courses.length >= 0) {%>
+                    <% courses.forEach(function(course){ %>
                         <div class="col s12 m4">
                             <div class="card">
                                 <div class="card-image">
                                     <% if (user) {%>
-                                        <%- editIcon(story.user._id, user.id, story._id) %>
+                                        <%- editIcon(course.user._id, user.id, course._id) %>
                                     <% } %>
                                 </div>
                                 <div class="card-content center-align">
-                                    <h5><%= story.title %></h5>
-                                    <p class="story-text"><%= truncate(stripTags(story.body), 150) %></p>
+                                    <h5><%= course.title %></h5>
+                                    <p class="course-text"><%= truncate(stripTags(course.description), 150) %></p>
                                     <br>
                                     <div class="chip">
-                                        <img src="<%= story.user.image %>">
-                                        <a href="/stories/user/<%=story.user._id%>"><%= story.user.firstName %> <%= story.user.lastName %></a>
+                                        <img src="<%= course.user.image %>">
+                                        <a href="/course/user/<%=course.user._id%>"><%= course.user.firstName %> <%= course.user.lastName %></a>
                                     </div>
                                 </div>
                                 <div class="card-action center-align">
-                                    <a class="btn grey" href="/stories/show/<%=story._id%>">
+                                    <a class="btn grey" href="/course/show/<%=course._id%>">
                                         Read More
                                     </a>
                                 </div>

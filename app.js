@@ -9,10 +9,10 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const auth = require('./routes/auth')
 const index = require('./routes/index')
-const stories = require('./routes/stories')
+const stories = require('./routes/course')
 const keys = require('./config/keys')
-const User = require('./models/User')
-const Story = require('./models/story')
+const User = require('./models/google-user')
+const Story = require('./models/course')
 require('./config/passport')(passport)
 
 const app = express()
@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', index)
 app.use('/auth', auth)
-app.use('/stories', stories)
+app.use('/course', course)
 
 const port = process.env.PORT || 5050
 

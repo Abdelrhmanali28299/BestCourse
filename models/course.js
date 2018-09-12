@@ -28,12 +28,12 @@ const storySchema = new Schema({
         },
         commentUser: {
             type: Schema.Types.ObjectId,
-            ref: 'users'
+            ref: 'googleUsers'
         }
     }],
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'googleUsers'
     },
     date: {
         type: Date,

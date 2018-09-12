@@ -1,7 +1,7 @@
 <nav class="grey darken-3">
     <div class="container">
         <div class="nav-wrapper">
-            <a href="/" class="brand-logo center">StoryBooks</a>
+            <a href="/" class="brand-logo center">BestCourse</a>
             <a href="#" data-activates="main-menu" class="button-collapse show-on-large"><i class="fa fa-bars"></i></a>
             <!-- RIGHT NAV -->
             <ul class="right hide-on-small-only">
@@ -9,7 +9,7 @@
                     <li><a href="/dashboard">Welcome <%= user.firstName %></a></li>
                     <li><a href="/auth/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
                 <% } else if(!user) { %>
-                    <li><a href="/stories"><i class="fa fa-book"></i>Public Stories</a></li>
+                    <li><a href="/course"><i class="fa fa-book"></i>Courses</a></li>
                 <% } %>
             </ul>
             <!-- SIDE MENU -->
@@ -21,11 +21,11 @@
                     <a class="btn red darken-1" href="/auth/google"><i class="fa fa-google left"></i> Login With Google</a>
                     </li>
                 <% } %>
-                <li><a href="/stories"><i class="fa fa-book"></i> Public Stories</a></li>
+                <li><a href="/course"><i class="fa fa-book"></i> Courses </a></li>
                 <% if (user) { %>
                     <li class="divider"></li>
                     <li><a href="/dashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
-                    <li><a href="/stories/my"><i class="fa fa-user"></i> My Stories</a></li>
+                    <li><a href="/course/my"><i class="fa fa-user"></i> My Courses</a></li>
                     <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                 <% } %>
             </ul>
