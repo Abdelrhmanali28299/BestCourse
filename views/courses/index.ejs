@@ -37,7 +37,9 @@
                                     <p class="course-text"><%= truncate(stripTags(course.description), 150) %></p>
                                     <div id="<%=course._id%>"></div>
                                     <script>
-                                        $("#<%=course._id%>").rateYo({ rating: parseInt("<%= course.rate %>") })
+                                        $(document).ready(() => {
+                                            $("#<%=course._id%>").rateYo({ rating: parseInt("<%= course.rate %>") })
+                                        })
                                     </script>
                                     <br>
                                     <div class="chip">
