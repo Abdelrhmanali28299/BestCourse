@@ -72,7 +72,15 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
     Course
         .findOne({ _id: req.params.id })
         .then(course => {
-            course.rate = ((course.rate * (course.comments.length + 1)) + req.body.rate)/(course.comments.length + 2)
+            let x = course.rate
+            x = x * (course.comments.length + 1)
+            console.log('total rate before '+x)
+            console.log(req.body.rate)
+            console.log(course.comments.length)
+            x = x + req.body.rate
+            x = x/(course.comments.length + 2)
+            console.log(x)
+            course.rate = x
             let newComment = {
                 commentBody: req.body.commentBody,
                 commentRate: req.body.rate,
