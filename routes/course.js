@@ -78,7 +78,10 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
             console.log(req.body.rate)
             console.log(course.comments.length)
             x = x + req.body.rate
-            x = x/(course.comments.length + 2)
+            y = course.comments.length + 2
+            console.log('total rate '+x)
+            console.log('total rater '+y)
+            x = x/y
             console.log(x)
             course.rate = x
             let newComment = {
