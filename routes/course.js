@@ -72,6 +72,7 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
     Course
         .findOne({ _id: req.params.id })
         .then(course => {
+            course.rate = ((course.rate * course.comments.length) + req.body.rate)/(course.comments.length + 1)
             let newComment = {
                 commentBody: req.body.commentBody,
                 commentRate: req.body.rate,
@@ -80,8 +81,8 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
             course.comments.unshift(newComment)
             course
                 .save()
-                .then(story => {
-                    res.redirect(`/course/show/${story._id}`)
+                .then(course => {
+                    res.redirect(`/course/show/${course._id}`)
                 })
         })
 })
@@ -103,8 +104,8 @@ router.get('/user/:id', (req, res) => {
             status: 'public'
         })
         .populate('user')
-        .then((stories) => {
-            res.render('stories/index', { stories })
+        .then((courses) => {
+            res.render('courses/index', { courses })
         })
 })
 
@@ -114,8 +115,8 @@ router.get('/my', ensureAuthenticated, (req, res) => {
             user: req.user.id
         })
         .populate('user')
-        .then((stories) => {
-            res.render('stories/index', { stories })
+        .then((courses) => {
+            res.render('courses/index', { courses })
         })
 })
 

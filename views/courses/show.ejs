@@ -29,7 +29,7 @@
                     <div class="card story">
                         <div class="card-content">
                             <span class="card-title"><%= course.date.toLocaleDateString() %></span>
-                            <%- course.body %>
+                            <%- course.description %>
                             <div id="rateYo"></div>
                         </div>
                     </div>
@@ -56,13 +56,6 @@
                     <% course.comments.forEach(function(comment) { %>
                         <div class="card">
                             <div class="card-content">
-                                <h5><%= comment.commentBody %></h5>
-                                <div id="rateYo3"></div>
-                                <script>
-                                    $(function () {
-                                        $("#rateYo3").rateYo({ rating: parseInt("<%= comment.commentRate %>"), fullStar:true })
-                                    });
-                                </script>
                                 <div class="chip">
                                     <img src="<%=comment.commentUser.image%>" alt="">
                                     <a href="/course/user/<%=course.user._id%>">
@@ -73,6 +66,9 @@
                                 <small>
                                     posted: <%=comment.commentDate.toLocaleDateString()%>
                                 </small>
+                                <div class="container">
+                                    <h5><%= comment.commentBody %></h5>
+                                </div>
                             </div>
                         </div>
                     <% }) %>
