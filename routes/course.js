@@ -74,6 +74,7 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
         .then(course => {
             let newComment = {
                 commentBody: req.body.commentBody,
+                commentRate: req.body.rate,
                 commentUser: req.user.id
             }
             course.comments.unshift(newComment)
