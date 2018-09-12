@@ -39,15 +39,17 @@
                         </div>
                         <% if (user) { %>
                             <form action="/course/comment/<%=course._id%>" method="POST">
-                                <div class="input-field">
-                                    <textarea name="commentBody" class="materialize-textarea"></textarea>
-                                    <label for="commentBody">Add Comment</label>
+                                <div class="container">
+                                    <div class="input-field">
+                                        <textarea name="commentBody" class="materialize-textarea"></textarea>
+                                        <label for="commentBody">Add Comment</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <div id="rateYo2"></div>
+                                        <input type="hidden" value="0" name="rate" id="rateyoid2">
+                                    </div>
+                                    <input type="submit" value="submit" class="btn">
                                 </div>
-                                <div class="input-field">
-                                    <div id="rateYo2"></div>
-                                    <input type="hidden" value="0" name="rate" id="rateyoid2">
-                                </div>
-                                <input type="submit" value="submit" class="btn">
                             </form>
                         <% } else if(!user) { %>
                             <p>please <a href="/auth/google">login</a> to leave a comment</p>
