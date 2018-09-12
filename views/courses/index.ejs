@@ -35,6 +35,12 @@
                                 <div class="card-content center-align">
                                     <h5><%= course.title %></h5>
                                     <p class="course-text"><%= truncate(stripTags(course.description), 150) %></p>
+                                    <div id="<%=course._id%>"></div>
+                                    <script>
+                                        $(function () {
+                                            $("#<%=course._id%>").rateYo({ rating: parseInt("<%= course.rate %>") })
+                                        });
+                                    </script>
                                     <br>
                                     <div class="chip">
                                         <img src="<%= course.user.image %>">

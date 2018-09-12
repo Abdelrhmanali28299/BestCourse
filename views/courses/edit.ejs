@@ -59,7 +59,7 @@
             $('select').material_select();
             $(function () {
                 $("#rateYo")
-                    .rateYo({ rating: parseInt("<%= course.rate %>"), fullStar:true })
+                    .rateYo({ rating: parseInt("<%= course.rate %>") })
                     .on("rateyo.set", function (e, data) {
                         alert("The rating is set to " + data.rating + "!");
                         document.getElementById("rateyoid").value=data.rating;

@@ -97,11 +97,11 @@
         $(document).ready(() => {
             $('.button-collapse').sideNav();
             $(function () {
-                $("#rateYo").rateYo({ rating: parseInt("<%= course.rate %>"), fullStar:true })
+                $("#rateYo").rateYo({ rating: parseInt("<%= course.rate %>") })
             });
             $(function () {
                 $("#rateYo2")
-                    .rateYo({ rating: 0, fullStar:true })
+                    .rateYo({ rating: 0 })
                     .on("rateyo.set", function (e, data) {
                         alert("The rating is set to " + data.rating + "!");
                         document.getElementById("rateyoid2").value=data.rating;

@@ -57,7 +57,7 @@
             $('select').material_select();
             $(function () {
                 $("#rateYo")
-                    .rateYo({ rating: 0, fullStar:true })
+                    .rateYo({ rating: 0 })
                     .on("rateyo.set", function (e, data) {
                         alert("The rating is set to " + data.rating + "!");
                         document.getElementById("rateyoid").value=data.rating;
