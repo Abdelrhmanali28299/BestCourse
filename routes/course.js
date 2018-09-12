@@ -40,7 +40,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
             if (data.user != req.user.id) {
                 res.redirect('/course')
             } else {
-                res.render('course/edit', { course: data })
+                res.render('courses/edit', { course: data })
             }
         })
 })
@@ -81,7 +81,7 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
             course
                 .save()
                 .then(story => {
-                    res.redirect(`/stories/show/${story._id}`)
+                    res.redirect(`/course/show/${story._id}`)
                 })
         })
 })
