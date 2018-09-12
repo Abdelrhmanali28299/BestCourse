@@ -61,7 +61,9 @@
         $(document).ready(() => {
             $('.button-collapse').sideNav();
             <% courses.forEach(function(course){ %>
-                $("#<%=course._id%>").rateYo({ rating: parseInt("<%= course.rate %>") })
+                $(function () {
+                    $("#<%=course._id%>").rateYo({ rating: parseInt("<%= course.rate %>") })
+                })
             <% }) %>
         });
     </script>
