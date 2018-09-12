@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>StoryBooks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>StoryBooks</title>
+</head>
+
+<body>
+    <% include ../partials/nav.ejs %>
+    <% if (user) { %>
+        <% include ../partials/add-btn.ejs %>
+    <% } %>
+    <% include functions.ejs %>
+    <main>
+        <div class="container">
+            <h1>Stories</h1>
+            <div class="row">
+                <% if (stories.length == 0) {%>
+                    <p>No Stories Found</p>
+                <% } else if (stories.length >= 0) {%>
+                    <% stories.forEach(function(story){ %>
+                        <div class="col s12 m4">
+                            <div class="card">
+                                <div class="card-image">
+                                    <% if (user) {%>
+                                        <%- editIcon(story.user._id, user.id, story._id) %>
+                                    <% } %>
+                                </div>
+                                <div class="card-content center-align">
+                                    <h5><%= story.title %></h5>
+                                    <p class="story-text"><%= truncate(stripTags(story.body), 150) %></p>
+                                    <br>
+                                    <div class="chip">
+                                        <img src="<%= story.user.image %>">
+                                        <a href="/stories/user/<%=story.user._id%>"><%= story.user.firstName %> <%= story.user.lastName %></a>
+                                    </div>
+                                </div>
+                                <div class="card-action center-align">
+                                    <a class="btn grey" href="/stories/show/<%=story._id%>">
+                                        Read More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+    </main>
+    <% include ../partials/footer.ejs %>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $('.button-collapse').sideNav();
+        });
+    </script>
+</body>
+
+</html>

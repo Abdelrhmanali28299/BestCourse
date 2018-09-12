@@ -1,0 +1,22 @@
+{
+  "name": "bestcourse",
+  "version": "1.0.0",
+  "description": "App to share your opinion about a on/offline courses",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Abdelrhman Ali",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.15.4",
+    "express-session": "^1.15.6",
+    "method-override": "^3.0.0",
+    "moment": "^2.22.2",
+    "mongoose": "^4.11.12",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
+  }
+}
