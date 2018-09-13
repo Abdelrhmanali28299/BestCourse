@@ -37,6 +37,16 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="input-field">
+                        <select id="sel" name="type">
+                            <option value="public">online</option>
+                            <option value="private">offline</option>
+                        </select>
+                        <label for="type">Type</label>
+                        </div>
+                    </div>
+
                     <input type="submit" value="Save" class="btn">
                 </form>
             </div>
@@ -47,6 +57,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
     <script>
+        $('#sel option:contains(<%=course.type%>)').prop({selected: true});
         $(document).ready(() => {
             $('.button-collapse').sideNav();
             $('select').material_select();

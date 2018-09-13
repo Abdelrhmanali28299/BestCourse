@@ -52,6 +52,7 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
         .then((data) => {
             data.title = req.body.title
             data.description = req.body.body
+            data.type = req.body.type
             data
                 .save()
                 .then(course => {
