@@ -23,6 +23,7 @@ router.post('/add', ensureAuthenticated, (req, res) => {
     let course = new Course({
         title: req.body.title,
         description: req.body.body,
+        type: req.body.type,
         rate: 0,
         user: req.user.id
     })

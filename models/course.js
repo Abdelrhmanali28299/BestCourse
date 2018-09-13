@@ -10,17 +10,32 @@ const storySchema = new Schema({
         type: String,
         required: true
     },
-    rate:{
+    rate: {
         type: Number,
-        default: 5
+        default: 0
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: {
+            type: String,
+            default: "Point"
+        },
+        coordinates: {
+            type: [Number],
+            index: "2dsphere"
+        }
     },
     comments: [{
         commentBody: {
             type: String,
             required: true
         },
-        commentRate:{
-            type: Number
+        commentRate: {
+            type: Number,
+            default: 0
         },
         commentDate: {
             type: Date,
