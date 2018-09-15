@@ -17,12 +17,14 @@
         <% include ../partials/add-btn.ejs %>
     <% } %>
     <main>
-        <form action="/course/" method="POST">
-            <!-- Search form -->
-            <div class="md-form">
-                <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">
-            </div>
-        </form>
+        <div class="container">
+            <form action="/course/" method="POST">
+                <!-- Search form -->
+                <div class="md-form">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">
+                </div>
+            </form>
+        </div>
     </main>
     <% include ../partials/footer.ejs %>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
