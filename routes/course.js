@@ -7,8 +7,12 @@ const { ensureAuthenticated } = require('../helpers/auth')
 const router = express.Router()
 
 router.get('/', (req, res) => {
+    res.render('courses/search')
+})
+
+router.post('/', (req, res) => {
     Course
-        .find({ rate: 5 })
+        .find( { description: { $regex: req.body.search } } )
         .populate('user')
         .then(data => {
             res.render('courses/index', { courses: data })

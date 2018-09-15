@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>BestCourse</title>
+</head>
+
+<body>
+    <% include ../partials/nav.ejs %>
+    <% if (user) { %>
+        <% include ../partials/add-btn.ejs %>
+    <% } %>
+    <% include functions.ejs %>
+    <main>
+        <form action="/course/" method="POST">
+            <!-- Search form -->
+            <div class="md-form">
+                <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">
+            </div>
+        </form>
+    </main>
+    <% include ../partials/footer.ejs %>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+    <script>
+        $('#sel option:contains(<%=course.type%>)').prop({selected: true});
+        $(document).ready(() => {
+            $('.button-collapse').sideNav();
+            $('select').material_select();
+        });
+        CKEDITOR.replace('body',{plugins: 'wysiwygarea,toolbar,basicstyles,link'});
+    </script>
+</body>
+
+</html>
