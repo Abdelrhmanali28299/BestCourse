@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     Course
-        .find( { description: { $regex: req.body.search } } )
+        .find( { title: { $regex: req.body.search } } )
         .populate('user')
         .then(data => {
             res.render('courses/index', { courses: data })
