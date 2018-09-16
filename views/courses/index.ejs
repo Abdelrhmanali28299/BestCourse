@@ -43,7 +43,8 @@
                                 </div>
                                 <div class="card-content center-align">
                                     <h5><%= course.title %></h5>
-                                    <h6><%= course.type %></h6>
+                                    <h6>(<%= course.type %>)</h6>
+                                    <br>
                                     <p class="course-text"><%= truncate(stripTags(course.description), 150) %></p>
                                     <div id="<%=course._id%>"></div>
                                     <br>
