@@ -22,10 +22,10 @@
         <div class="container">
             <br>
             <br>
-            <form action="/course/?page=0" method="POST">
+            <form id="searchForm" action="/course/?page=0" method="GET">
                 <!-- Search form -->
                 <div class="md-form">
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" id="submit">
                 </div>
             </form>
             <h1>Courses</h1>
@@ -75,6 +75,9 @@
     <script>
         $(document).ready(() => {
             $('.button-collapse').sideNav();
+            $("#submit").click(function() {
+                $('#searchForm').attr('action', '/course/?page=0&search='+document.getElementById("submit").value);
+            })
             <% courses.forEach(function(course){ %>
                 $(function () {
                     $("#<%=course._id%>").rateYo({ rating: parseInt("<%= Math.round(course.rate * 10) / 10 %>") })

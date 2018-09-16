@@ -10,9 +10,9 @@ router.get('/search', (req, res) => {
     res.render('courses/search')
 })
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
     Course
-        .find( { title: { $regex: req.body.search } } )
+        .find( { title: { $regex: req.query.search } } )
         .skip(req.query.page * 15)
         .limit(15)
         .sort({ rate : -1})
