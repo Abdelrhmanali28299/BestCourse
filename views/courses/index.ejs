@@ -76,7 +76,7 @@
         $(document).ready(() => {
             $('.button-collapse').sideNav();
             $("#search").change(function() {
-                $('#searchForm').attr('action', '/course/?search='+document.getElementById("search").value + '&page=0&pjnj=0');
+                $('#searchForm').attr('action', '/course/?search='+document.getElementById("search").value + '&page=0');
             })
             <% courses.forEach(function(course){ %>
                 $(function () {

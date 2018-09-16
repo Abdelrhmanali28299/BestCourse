@@ -20,9 +20,10 @@
         <div class="container">
             <br>
             <br>
-            <form id="searchForm" method="GET">
+            <form id="searchForm" action="/course/" method="GET">
                 <!-- Search form -->
                 <div class="md-form">
+                    <input type="hidden" value="0" name="page">
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" id="search">
                 </div>
             </form>
@@ -35,9 +36,6 @@
     <script>
         $(document).ready(() => {
             $('.button-collapse').sideNav();
-            $("#search").change(function() {
-                $('#searchForm').attr('action', '/course/?search='+document.getElementById("search").value + '&page=0');
-            })
         });
         CKEDITOR.replace('body',{plugins: 'wysiwygarea,toolbar,basicstyles,link'});
     </script>
