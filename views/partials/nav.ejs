@@ -9,7 +9,7 @@
                     <li><a href="/dashboard">Welcome <%= user.firstName %></a></li>
                     <li><a href="/auth/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
                 <% } else if(!user) { %>
-                    <li><a href="/course"><i class="fa fa-book"></i>Courses</a></li>
+                    <li><a href="/course/search"><i class="fa fa-book"></i>Courses</a></li>
                 <% } %>
             </ul>
             <!-- SIDE MENU -->
@@ -21,7 +21,7 @@
                     <a class="btn red darken-1" href="/auth/google"><i class="fa fa-google left"></i> Login With Google</a>
                     </li>
                 <% } %>
-                <li><a href="/course"><i class="fa fa-book"></i> Courses </a></li>
+                <li><a href="/course/search"><i class="fa fa-book"></i> Courses </a></li>
                 <% if (user) { %>
                     <li class="divider"></li>
                     <li><a href="/dashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
