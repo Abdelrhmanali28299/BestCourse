@@ -30,11 +30,10 @@
             </form>
             <h1>Courses</h1>
             <div class="row">
-                <% if (courses.length == 0) {%>
+                <% if (courses.length == 0) { %>
                     <p>No Courses Found</p>
-                <% } else if (courses.length >= 0) {%>
-                    <%= let x = courses.length/15 %>
-                    <% courses.forEach(function(course){ %>
+                <% } else if (courses.length >= 0) { %>
+                    <% courses.forEach(function(course) { %>
                         <div class="col s12 m4">
                             <div class="card">
                                 <div class="card-image">
