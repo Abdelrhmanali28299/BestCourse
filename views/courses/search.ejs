@@ -23,7 +23,8 @@
             <form id="searchForm" action="/course/?page=0" method="GET">
                 <!-- Search form -->
                 <div class="md-form">
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" id="submit">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" id="search">
+                    <input type="submit" id="submit" value="search">
                 </div>
             </form>
         </div>
@@ -35,8 +36,8 @@
     <script>
         $(document).ready(() => {
             $('.button-collapse').sideNav();
-            $("#submit").click(function() {
-                $('#searchForm').attr('action', '/course/?page=0&search='+document.getElementById("submit").value);
+            $("#submit").submit(function() {
+                $('#searchForm').attr('action', '/course/?page=0&search='+document.getElementById("search").value);
             })
         });
         CKEDITOR.replace('body',{plugins: 'wysiwygarea,toolbar,basicstyles,link'});
