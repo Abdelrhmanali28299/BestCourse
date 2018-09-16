@@ -6,17 +6,19 @@ const { ensureAuthenticated } = require('../helpers/auth')
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/search', (req, res) => {
     res.render('courses/search')
 })
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
     Course
         .find( { title: { $regex: req.body.search } } )
+        .skip(req.query.page * 15)
+        .limit(15)
         .sort({ rate : -1})
         .populate('user')
         .then(data => {
-            res.render('courses/index', { courses: data })
+            res.render('courses/index', { courses: data, lastIndex: req.query.page+1})
         })
 })
 
@@ -44,7 +46,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
         .findOne({ _id: req.params.id })
         .then((data) => {
             if (data.user != req.user.id) {
-                res.redirect('/course')
+                res.redirect('/course/search')
             } else {
                 res.render('courses/edit', { course: data })
             }
