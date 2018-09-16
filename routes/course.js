@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
         .sort({ rate : -1})
         .populate('user')
         .then(data => {
-            res.render('courses/index', { courses: data, lastIndex: req.query.page+1})
+            res.render('courses/index', { courses: data, lastIndex: (req.query.page+1) })
         })
 })
 
