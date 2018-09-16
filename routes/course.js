@@ -11,15 +11,19 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    Course
+    if( req.query.page && req.query.page != '' && req.query.search && req.query.search != '' ) {
+        Course
         .find( { title: { $regex: req.query.search } } )
-        .skip(req.query.page * 15)
+        .skip((parseInt(req.query.page) - 1) * 15)
         .limit(15)
         .sort({ rate : -1})
         .populate('user')
         .then(data => {
-            res.render('courses/index', { courses: data, lastIndex: (req.query.page+1), searchWord: req.query.search })
+            res.render('courses/index', { courses: data, lastIndex: parseInt(req.query.page)+1, searchWord: req.query.search })
         })
+    } else {
+        res.redirect('/course/search')
+    }
 })
 
 router.get('/add', ensureAuthenticated, (req, res) => {
