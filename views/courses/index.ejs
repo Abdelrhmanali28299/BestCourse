@@ -22,7 +22,7 @@
         <div class="container">
             <br>
             <br>
-            <form action="/course/" method="GET">
+            <form action="/course/?page=0" method="GET">
                 <!-- Search form -->
                 <div class="md-form">
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search">
@@ -61,9 +61,11 @@
                             </div>
                         </div>
                     <% }) %>
-                    <a href="/course/?page=<%=lastIndex%>" class="next">Next &raquo;</a>
                 <% } %>
             </div>
+            <% if (courses.length > 15) { %>
+                <a href="/course/?page=<%=lastIndex%>" class="next">Next &raquo;</a>
+            <% } %>
         </div>
     </main>
     <% include ../partials/footer.ejs %>
