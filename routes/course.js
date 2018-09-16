@@ -12,7 +12,7 @@ router.get('/search', (req, res) => {
 
 router.get('/', (req, res) => {
     Course
-        .find( { title: { $regex: req.body.search } } )
+        .find( { title: { $regex: /req.body.search/ } } )
         .skip(req.query.page * 15)
         .limit(15)
         .sort({ rate : -1})
