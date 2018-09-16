@@ -29,18 +29,15 @@ footer {
   display: inline;
 }
 
-a {
+.next {
   text-decoration: none;
   display: inline-block;
   padding: 8px 16px;
-}
-
-a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.next {
   background-color: #4CAF50;
   color: white;
+}
+
+.next:hover {
+  background-color: #ddd;
+  color: black;
 }
