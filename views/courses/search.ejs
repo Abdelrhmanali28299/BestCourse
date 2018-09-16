@@ -36,7 +36,7 @@
     <script>
         $(document).ready(() => {
             $('.button-collapse').sideNav();
-            $("#submitForm").submit(function() {
+            $("#search").change(function() {
                 $('#searchForm').attr('action', '/course?page=0&search='+document.getElementById("search").value);
             })
         });
