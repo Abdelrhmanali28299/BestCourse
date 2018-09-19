@@ -97,7 +97,7 @@
         $(document).ready(() => {
             $('.button-collapse').sideNav();
             $(function () {
-                $("#rateYo").rateYo({ rating: parseInt("<%= Math.round(course.rate * 10) / 10 %>"), readOnly: true })
+                $("#rateYo").rateYo({ rating: parseInt("<%= Math.round(course.rate * 10)%>") / 10, readOnly: true })
             });
             $(function () {
                 $("#rateYo2")
