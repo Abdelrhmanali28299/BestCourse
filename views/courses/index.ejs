@@ -78,7 +78,7 @@
             $('.button-collapse').sideNav();
             <% courses.forEach(function(course){ %>
                 $(function () {
-                    $("#<%=course._id%>").rateYo({ rating: parseInt("<%= Math.round(course.rate * 10) / 10 %>") })
+                    $("#<%=course._id%>").rateYo({ rating: parseInt("<%= Math.round(course.rate * 10) / 10 %>"), readOnly: true })
                 })
             <% }) %>
         });
