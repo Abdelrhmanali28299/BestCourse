@@ -18,6 +18,9 @@ const storySchema = new Schema({
         type: String,
         required: true
     },
+    link: {
+        type: String
+    },
     location: {
         type: {
             type: String,
