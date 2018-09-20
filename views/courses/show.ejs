@@ -88,11 +88,11 @@
                   <div class="card center-align">
                         <% if (course.type == "offline") { %>
                             <div class="card-content">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1725.1037676993565!2d<%=course.location.coordinates[1]%>!3d<%=course.location.coordinates[0]%>!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2seg!4v1537454553548" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1725.1037676993565!2d<%=course.location.coordinates[1]%>!3d<%=course.location.coordinates[0]%>!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2seg!4v1537454553548" width="250" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                             </div>
                         <% } else if (course.type == "online") { %>
                             <div class="card-action">
-                                <a href="course.link">Join Course Now</a>
+                                <a href="<%=course.link%>">Join Course Now</a>
                             </div>
                         <% } %>
                     </div>
