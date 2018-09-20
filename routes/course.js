@@ -84,6 +84,11 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
             data.title = req.body.title
             data.description = req.body.body
             data.type = req.body.type
+            if(req.body.type == "online") {
+                data.link = req.body.link
+            } else if (req.body.type == "offline") {
+                data.location.coordinates = [parseFloat(req.body.lat), parseFloat(req.body.long)]
+            }
             data
                 .save()
                 .then(course => {
