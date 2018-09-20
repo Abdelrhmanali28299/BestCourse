@@ -11,16 +11,16 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    if( req.query.page && req.query.page != '' && req.query.search && req.query.search != '' ) {
+    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '') {
         Course
-        .find( { title: { $regex: req.query.search } } )
-        .skip((parseInt(req.query.page) - 1) * 15)
-        .limit(15)
-        .sort({ rate : -1})
-        .populate('user')
-        .then(data => {
-            res.render('courses/index', { courses: data, lastIndex: parseInt(req.query.page)+1, searchWord: req.query.search })
-        })
+            .find({ title: { $regex: req.query.search } })
+            .skip((parseInt(req.query.page) - 1) * 15)
+            .limit(15)
+            .sort({ rate: -1 })
+            .populate('user')
+            .then(data => {
+                res.render('courses/index', { courses: data, lastIndex: parseInt(req.query.page) + 1, searchWord: req.query.search })
+            })
     } else {
         res.redirect('/course/search')
     }
@@ -31,18 +31,38 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 })
 
 router.post('/add', ensureAuthenticated, (req, res) => {
-    let course = new Course({
-        title: req.body.title,
-        description: req.body.body,
-        type: req.body.type,
-        rate: 0,
-        user: req.user.id
-    })
-    course
-        .save()
-        .then(data => {
-            res.redirect(`/course/show/${data._id}`)
+    if (req.body.type == "online") {
+        let course = new Course({
+            title: req.body.title,
+            description: req.body.body,
+            type: req.body.type,
+            link: req.body.link,
+            rate: 0,
+            user: req.user.id
         })
+        course
+            .save()
+            .then(data => {
+                res.redirect(`/course/show/${data._id}`)
+            })
+    } else {
+        let course = new Course({
+            title: req.body.title,
+            description: req.body.body,
+            type: req.body.type,
+            location: {
+                type: "point",
+                coordinates: [parseFloat(req.body.lat), parseFloat(req.body.long)]
+            },
+            rate: 0,
+            user: req.user.id
+        })
+        course
+            .save()
+            .then(data => {
+                res.redirect(`/course/show/${data._id}`)
+            })
+    }
 })
 
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
@@ -84,7 +104,7 @@ router.post('/comment/:id', ensureAuthenticated, (req, res) => {
     Course
         .findOne({ _id: req.params.id })
         .then(course => {
-            course.rate = ((parseInt(course.rate) * course.comments.length) + parseInt(req.body.rate * 10) / 10)/(course.comments.length + 1)
+            course.rate = ((parseInt(course.rate) * course.comments.length) + parseInt(req.body.rate * 10) / 10) / (course.comments.length + 1)
             let newComment = {
                 commentBody: req.body.commentBody,
                 commentRate: req.body.rate,
