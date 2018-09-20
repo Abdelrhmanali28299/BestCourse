@@ -67,19 +67,19 @@
 
                     <div class="row">
                         <div class="input-field col s6">
-                            <% if(location.coordinates) { %>
+                            <% if(course.location.coordinates) { %>
                                 <input type="text" name="lat" value="location.coordinates[0]">
                             <% } %>
-                            <% if (!course.coordinates) {%>
+                            <% if (!course.location.coordinates) {%>
                                 <input type="text" name="lat">
                             <% } %>
                             <label for="lat">Latitude:</label>
                         </div>
                         <div class="input-field col s6">
-                            <% if(location.coordinates) { %>
+                            <% if(course.location.coordinates) { %>
                                 <input type="text" name="long" value="location.coordinates[1]">
                             <% } %>
-                            <% if (!course.coordinates) {%>
+                            <% if (!course.location.coordinates) {%>
                                 <input type="text" name="long">
                             <% } %>
                             <label for="long">Longitude:</label>
