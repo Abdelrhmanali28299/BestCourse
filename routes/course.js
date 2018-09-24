@@ -11,9 +11,9 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '') {
+    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '' && req.query.minPrice < req.query.maxPrice) {
         Course
-            .find({ title: { $regex: req.query.search } })
+            .find({ title: { $regex: req.query.search, price: {$lt: req.query.maxPrice}, price: {$gt: req.query.minPrice} } })
             .skip((parseInt(req.query.page) - 1) * 15)
             .limit(15)
             .sort({ rate: -1 })
@@ -35,6 +35,7 @@ router.post('/add', ensureAuthenticated, (req, res) => {
         let course = new Course({
             title: req.body.title,
             description: req.body.body,
+            price: parseFloat(req.body.price),
             type: req.body.type,
             link: req.body.link,
             rate: 0,
@@ -84,6 +85,7 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
             data.title = req.body.title
             data.description = req.body.body
             data.type = req.body.type
+            data.price = parseFloat(req.body.price)
             if(req.body.type == "online") {
                 data.link = req.body.link
             } else if (req.body.type == "offline") {
@@ -137,8 +139,7 @@ router.get('/show/:id', (req, res) => {
 router.get('/user/:id', (req, res) => {
     Course
         .find({
-            user: req.params.id,
-            status: 'public'
+            user: req.params.id
         })
         .populate('user')
         .then((courses) => {

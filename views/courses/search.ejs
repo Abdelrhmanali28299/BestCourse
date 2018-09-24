@@ -20,13 +20,28 @@
         <div class="container">
             <br>
             <br>
-            <form id="searchForm" action="/course/" method="GET">
-                <!-- Search form -->
-                <div class="md-form">
+            <div class="row">
+                <form id="searchForm" class="col s12" action="/course/" method="GET">
                     <input type="hidden" value="1" name="page">
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" id="search">
-                </div>
-            </form>
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="text" placeholder="Search" name="search" id="search">
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="number" name="minPrice" id="minPrice" value="0.00">
+                            <label for="minPrice">Min-Price</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input type="number" name="maxPrice" id="maxPrice" value="0.00">
+                            <label for="maxPrice">Max-Price</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
     <% include ../partials/footer.ejs %>
