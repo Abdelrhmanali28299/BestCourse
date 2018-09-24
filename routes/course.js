@@ -11,7 +11,7 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '' && req.query.minPrice <= req.query.maxPrice && req.query.minPrice > 0 && req.query.maxPrice > 0) {
+    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '' && req.query.minPrice <= req.query.maxPrice && req.query.minPrice >= 0 && req.query.maxPrice >= 0) {
         Course
             .find({ title: { $regex: req.query.search }, price: { $lt: parseFloat(req.query.maxPrice) + 1, $gt: parseFloat(req.query.minPrice) - 1 } })
             .skip((parseInt(req.query.page) - 1) * 15)
