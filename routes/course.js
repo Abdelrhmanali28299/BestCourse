@@ -11,9 +11,9 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '' && req.query.minPrice < req.query.maxPrice) {
+    if (req.query.page && req.query.page != '' && req.query.search && req.query.search != '' && req.query.minPrice <= req.query.maxPrice && req.query.minPrice > 0 && req.query.maxPrice > 0) {
         Course
-            .find({ title: { $regex: req.query.search }, price: {$lt: parseFloat(req.query.maxPrice) + 1, $gt: parseFloat(req.query.minPrice) - 1 } })
+            .find({ title: { $regex: req.query.search }, price: { $lt: parseFloat(req.query.maxPrice) + 1, $gt: parseFloat(req.query.minPrice) - 1 } })
             .skip((parseInt(req.query.page) - 1) * 15)
             .limit(15)
             .sort({ rate: -1 })
@@ -86,7 +86,7 @@ router.put('/edit/:id', ensureAuthenticated, (req, res) => {
             data.description = req.body.body
             data.type = req.body.type
             data.price = parseFloat(req.body.price)
-            if(req.body.type == "online") {
+            if (req.body.type == "online") {
                 data.link = req.body.link
             } else if (req.body.type == "offline") {
                 data.location.coordinates = [parseFloat(req.body.lat), parseFloat(req.body.long)]
