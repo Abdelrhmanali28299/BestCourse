@@ -24,11 +24,12 @@ app.use(bodyParser.json())
 app.use(methodOverride('_method'))
 
 mongoose
-  .connect(keys.mongoURI, { useMongoClient: true })
+  .connect(keys.mongoURI)
   .then(() => {
     console.log(`your database connected`)
   })
   .catch(err => {
+    console.log(`your database not connected`)
     console.log(err)
   })
 
